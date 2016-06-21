@@ -14,6 +14,7 @@ var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
 var cssnano = require('cssnano');
 var uglify = require('gulp-uglify');
+var sourcemaps = require('gulp-sourcemaps');
 
 // build tasks
 
@@ -52,7 +53,9 @@ gulp.task('build', function() {
 
 gulp.task('dev:css', function() {
   return gulp.src('./src/static/scss/**/*.scss')
+    .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
+    .pipe(sourcemaps.write())
     .pipe(rename('style.css'))    
     .pipe(gulp.dest('./src/static/css/'))
     .pipe(browserSync.stream());    
